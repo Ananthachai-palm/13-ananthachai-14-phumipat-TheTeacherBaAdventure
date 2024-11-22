@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -8,17 +9,17 @@ public class PlayerControl : MonoBehaviour
     private float speed = 10.0f;
     private float jumpPower = 5.0f;
 
-    private Rigidbody2D rb;
-    private BoxCollider2D boxCol;
-    private Vector2 velocity;
+    private bool isJump;
+    private bool isAirJump;
 
-    private bool isOnGroud;
-    private bool airJump = true;
+    private Rigidbody2D rb;
+    RaycastHit2D hit;
+
+
     // Awake
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        boxCol = GetComponent<BoxCollider2D>();
     }
     
     // Update
@@ -28,33 +29,50 @@ public class PlayerControl : MonoBehaviour
         float inputXAxis = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(inputXAxis * speed, rb.velocity.y);
 
-        Jump();
+        // Use check jump from Player
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            IfPlayerIsJump();
+        }
+        Debug.DrawRay(transform.position, Vector2.down * 1.4f, Color.red);
+
+    }
+
+    // Use when Player click Spacbar to Jump
+    private void IfPlayerIsJump()
+    {
+        hit = Physics2D.Raycast(transform.position, Vector2.down, 1.4f);
+        // Use to check if Player stand on the Groud
+        // When Player on the Groud, Player will reset jump 
+        if (hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Groud"))
+            {
+                Debug.Log("Groud");
+                isJump = true;
+                isAirJump = true;
+            }
+        }
+
+        // Use to check if Player stay on Groud and press Spacebar
+        if (isJump)
+        {
+            Debug.Log("isJump");
+
+            Jump(); // Jump
+            isJump = false;
+        }
+        else if (isAirJump) // Use to check if Player on air and press Spacebar
+        {
+            Debug.Log("isAirJump");
+            Jump(); // AirJump
+            isAirJump = false;
+        }
     }
 
     private void Jump()
     {
-        // Use to check if Player stay on Groud and press Spacebar
-        if (isOnGroud && Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower); // Jump
-            isOnGroud = false;
-        }
-        else if (airJump && Input.GetKeyDown(KeyCode.Space)) // Use to check if Player on air and press Spacebar
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower); // AirJump
-            airJump = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Use to check if Player stand on the Groud
-        // When Player on the Groud, Player will reset jump 
-        if(collision.gameObject.tag == "Groud")
-        {
-            isOnGroud = true;
-            airJump = true;
-        }
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower); // Jump
     }
 
 
