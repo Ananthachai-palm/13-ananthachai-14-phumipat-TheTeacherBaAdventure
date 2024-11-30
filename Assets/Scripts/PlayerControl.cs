@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,7 +16,6 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody2D rb;
     RaycastHit2D hit;
 
-
     // Awake
     private void Awake()
     {
@@ -28,18 +28,25 @@ public class PlayerControl : MonoBehaviour
         // Use to collect way to run between 1(right) or -1(left)
         float inputXAxis = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(inputXAxis * speed, rb.velocity.y);
-
+        if (inputXAxis > 0.01f)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else if (inputXAxis < -0.01f)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
         // Use check jump from Player
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            IfPlayerIsJump();
+            ChackJump();
+            IsPlayerJump();
         }
         Debug.DrawRay(transform.position, Vector2.down * 1.4f, Color.red);
 
     }
 
-    // Use when Player click Spacbar to Jump
-    private void IfPlayerIsJump()
+    private void ChackJump()
     {
         hit = Physics2D.Raycast(transform.position, Vector2.down, 1.4f);
         // Use to check if Player stand on the Groud
@@ -53,7 +60,11 @@ public class PlayerControl : MonoBehaviour
                 isAirJump = true;
             }
         }
+    }
 
+    // Use when Player click Spacbar to Jump
+    private void IsPlayerJump()
+    {
         // Use to check if Player stay on Groud and press Spacebar
         if (isJump)
         {
