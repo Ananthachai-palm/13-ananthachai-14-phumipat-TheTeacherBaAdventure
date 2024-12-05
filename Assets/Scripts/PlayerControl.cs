@@ -7,8 +7,8 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     // Variable
-    private float speed = 10.0f;
-    private float jumpPower = 5.0f;
+    private float speed = 5.25f;
+    private float jumpPower = 7.5f;
 
     private bool isJump;
     private bool isAirJump;
