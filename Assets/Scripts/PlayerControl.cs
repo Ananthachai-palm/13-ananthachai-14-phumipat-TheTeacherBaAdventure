@@ -7,19 +7,20 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     // Variable
-    private float speed = 5.25f;
-    private float jumpPower = 7.5f;
+    private float _speed = 10.0f;
+    private float _jumpPower = 5.0f;
+    private float _range = 1.4f;
 
-    private bool isJump;
-    private bool isAirJump;
+    private bool _isJump;
+    private bool _isAirJump;
 
-    private Rigidbody2D rb;
-    RaycastHit2D hit;
+    private Rigidbody2D _rb;
+    private RaycastHit2D _hit;
 
     // Awake
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
     
     // Update
@@ -27,7 +28,7 @@ public class PlayerControl : MonoBehaviour
     {
         // Use to collect way to run between 1(right) or -1(left)
         float inputXAxis = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(inputXAxis * speed, rb.velocity.y);
+        _rb.velocity = new Vector2(inputXAxis * _speed, _rb.velocity.y);
         if (inputXAxis > 0.01f)
         {
             transform.localScale = Vector3.one;
@@ -42,22 +43,28 @@ public class PlayerControl : MonoBehaviour
             ChackJump();
             IsPlayerJump();
         }
-        Debug.DrawRay(transform.position, Vector2.down * 1.4f, Color.red);
+        Debug.DrawRay(transform.position, Vector2.down * _range, Color.red);
 
     }
 
     private void ChackJump()
     {
-        hit = Physics2D.Raycast(transform.position, Vector2.down, 1.4f);
+        _hit = Physics2D.Raycast(transform.position, Vector2.down, _range);
         // Use to check if Player stand on the Groud
         // When Player on the Groud, Player will reset jump 
-        if (hit.collider != null)
+        if (_hit.collider != null)
         {
-            if (hit.collider.CompareTag("Groud"))
+            if (_hit.collider.CompareTag("Groud"))
             {
-                Debug.Log("Groud");
-                isJump = true;
-                isAirJump = true;
+                Debug.Log("on Groud");
+                _isJump = true;
+                _isAirJump = true;
+            }
+            else if (_hit.collider.GetComponent<Enemy>() is not null)
+            {
+                Debug.Log("on Enemy");
+                _isJump = true;
+                _isAirJump = true;
             }
         }
     }
@@ -66,25 +73,23 @@ public class PlayerControl : MonoBehaviour
     private void IsPlayerJump()
     {
         // Use to check if Player stay on Groud and press Spacebar
-        if (isJump)
+        if (_isJump)
         {
             Debug.Log("isJump");
 
             Jump(); // Jump
-            isJump = false;
+            _isJump = false;
         }
-        else if (isAirJump) // Use to check if Player on air and press Spacebar
+        else if (_isAirJump) // Use to check if Player on air and press Spacebar
         {
             Debug.Log("isAirJump");
             Jump(); // AirJump
-            isAirJump = false;
+            _isAirJump = false;
         }
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpPower); // Jump
+        _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower); // Jump
     }
-
-
 }

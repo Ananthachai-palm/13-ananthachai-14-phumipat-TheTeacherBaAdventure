@@ -11,10 +11,18 @@ public class PlayerBullet : Item
     }
     public override void UseItem(Player player)
     {
-        player.AmoutBullet--;
-        // GameObject obj = Instantiate(player.Bullet, player.transform.position, Quaternion.identity);
+        // When use item. it's will reduce amount items by 1 
+        player.PlayerBullet.AmountItem--;
 
+        // Instantiate mugen
+        GameObject obj = Instantiate(player.Bullet, player.BulletSpawnPoint.transform.position, Quaternion.identity);
+        Mugen mugen = obj.GetComponent<Mugen>();
+        mugen.Init(player.Damage, player.GetComponent<IShootable>());
+
+        // Destroy after DestroyTime is finish
+        Destroy(obj, mugen.DestroyTime);
+
+        // Debug
         Debug.Log($"Player Shoot {Name}");
-
     }
 }

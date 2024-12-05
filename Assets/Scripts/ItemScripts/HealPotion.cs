@@ -10,8 +10,13 @@ public class HealPotion : Item
     }
     public override void UseItem(Player player)
     {
-        player.AmoutPotion--;
+        // When use item. it's will reduce amount items by 1 
+        player.Potion.AmountItem--;
+
+        // Heal player HP: 20
         player.HP += 20;
+
+        // Debug
         Debug.Log($"Player use {Name}, Player HP:{player.HP}");
     }
 }
