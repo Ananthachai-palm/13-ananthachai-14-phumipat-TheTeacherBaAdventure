@@ -1375,6 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _setHP: 150
   _setDamage: 200
+  charHealthBar: {fileID: 0}
   <BulletSpawnPoint>k__BackingField: {fileID: 1932621767}
   <Bullet>k__BackingField: {fileID: 98791623133358256, guid: e52abac3d70c6d74c8d0d0eb718b57c8, type: 3}
   <CoolDownTime>k__BackingField: 1
