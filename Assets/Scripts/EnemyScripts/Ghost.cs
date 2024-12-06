@@ -7,7 +7,6 @@ public class Ghost : Enemy, IShootable
 {
     [SerializeField] private Transform[] _flyPoint;
     [SerializeField] private float _flyPower;
-    [SerializeField] private float _hitBoxRange = 5f;
 
     [field: SerializeField] public Transform BulletSpawnPoint { get; set; }
     [field: SerializeField] public GameObject Bullet { get; set; }
@@ -20,11 +19,29 @@ public class Ghost : Enemy, IShootable
         Init();
     }
 
+    // Update
+    private void Update()
+    {
+        Timer();
+
+        Movement();
+        IsDead();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("HitBox " + collision);
+        Character obj = collision.GetComponent<Character>();
+        if (obj is Player)
+        {
+            Attack();
+        }
+    }
+
     public override void Movement()
     {
         Fly();
         base.Movement();
-        _hitBox.transform.position = new Vector2(transform.position.x, transform.position.y - _hitBoxRange);
     }
 
     public override void Attack()
@@ -54,11 +71,13 @@ public class Ghost : Enemy, IShootable
     {
         if (IsReadyToShoot())
         {
+            _animator.SetTrigger("isAttack");
             GameObject obj = Instantiate(Bullet, BulletSpawnPoint.transform.position, Quaternion.identity);
             Puke puke = obj.GetComponent<Puke>();
             puke.Init(Damage, GetComponent<IShootable>());
             Destroy(obj, puke.DestroyTime);
             ResetTimer();
+            _animator.SetTrigger("isIdle");
         }
     }
     public void Timer()

@@ -20,6 +20,7 @@ public class Mugen : Bullet
         if (inputChar is Enemy)
         {
             inputChar.TakeDamage(Damage);
+            Destroy(gameObject);
         }
     }
 }

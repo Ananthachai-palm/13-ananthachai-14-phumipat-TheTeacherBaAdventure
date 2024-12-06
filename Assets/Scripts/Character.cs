@@ -28,6 +28,7 @@ public abstract class Character : MonoBehaviour
         set
         {
             _hP = Mathf.Clamp(value, 0, _maxHP);
+            charHealthBar.ReduceHealthBar(HP);
         }
     }
 
@@ -48,6 +49,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    [SerializeField] protected Animator _animator;
     protected Rigidbody2D _rb;
 
     // For set HP and Damage outside the scripts (Can set on unity)
@@ -57,11 +59,21 @@ public abstract class Character : MonoBehaviour
     [SerializeField] private int _setHP = 1;
     [SerializeField] private int _setDamage = 1;
 
+    [SerializeField] private HealthBarManager charHealthBar;
+    public HealthBarManager CharHealthBar
+    {
+        get
+        {
+            return charHealthBar;
+        }
+    }
+
     // Init
     public void Init()
     {
         MaxHP = _setHP;
         HP = MaxHP;
+        charHealthBar.InitHealthBar(MaxHP);
 
         Damage = _setDamage;
 

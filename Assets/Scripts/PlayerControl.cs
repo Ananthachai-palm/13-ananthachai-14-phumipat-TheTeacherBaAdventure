@@ -9,11 +9,13 @@ public class PlayerControl : MonoBehaviour
     // Variable
     private float _speed = 10.0f;
     private float _jumpPower = 5.0f;
-    private float _range = 1.4f;
+    [SerializeField]
+    private float _range = 1f;
 
     private bool _isJump;
     private bool _isAirJump;
 
+    [SerializeField] private Animator _animator;
     private Rigidbody2D _rb;
     private RaycastHit2D _hit;
 
@@ -32,10 +34,16 @@ public class PlayerControl : MonoBehaviour
         if (inputXAxis > 0.01f)
         {
             transform.localScale = Vector3.one;
+            _animator.SetTrigger("isWalk");
         }
         else if (inputXAxis < -0.01f)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+            _animator.SetTrigger("isWalk");
+        }
+        else if (inputXAxis == 0f)
+        {
+            _animator.SetTrigger("isIdle");
         }
         // Use check jump from Player
         if (Input.GetKeyDown(KeyCode.Space))
@@ -54,15 +62,8 @@ public class PlayerControl : MonoBehaviour
         // When Player on the Groud, Player will reset jump 
         if (_hit.collider != null)
         {
-            if (_hit.collider.CompareTag("Groud"))
+            if (_hit.collider.CompareTag("Groud") || _hit.collider.GetComponent<Enemy>() is not null)
             {
-                Debug.Log("on Groud");
-                _isJump = true;
-                _isAirJump = true;
-            }
-            else if (_hit.collider.GetComponent<Enemy>() is not null)
-            {
-                Debug.Log("on Enemy");
                 _isJump = true;
                 _isAirJump = true;
             }
@@ -79,17 +80,20 @@ public class PlayerControl : MonoBehaviour
 
             Jump(); // Jump
             _isJump = false;
+            _animator.SetTrigger("isLand");
         }
         else if (_isAirJump) // Use to check if Player on air and press Spacebar
         {
             Debug.Log("isAirJump");
             Jump(); // AirJump
             _isAirJump = false;
+            _animator.SetTrigger("isLand");
         }
     }
 
     private void Jump()
     {
+        _animator.SetTrigger("isJump");
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpPower); // Jump
     }
 }

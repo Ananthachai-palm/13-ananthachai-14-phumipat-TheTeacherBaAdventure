@@ -17,6 +17,8 @@ public class Player : Character, IShootable
     // For set amount  of bullet before game start
     [SerializeField] private int _startAmountBullet;
 
+    [SerializeField] private int _startAmountPotion;
+
     // For set amount  lift for respawn
     [SerializeField] private int _life;
 
@@ -37,6 +39,8 @@ public class Player : Character, IShootable
 
         // Init bullet amount  before game start
         PlayerBullet.AmountItem = _startAmountBullet;
+
+        Potion.AmountItem = _startAmountPotion;
     }
 
     private void Update()
@@ -118,6 +122,7 @@ public class Player : Character, IShootable
     {
         HP = MaxHP;
         transform.position = _playerSpawnPoint;
+        CharHealthBar.InitHealthBar(HP);
     }
     public void CheckDead()
     {

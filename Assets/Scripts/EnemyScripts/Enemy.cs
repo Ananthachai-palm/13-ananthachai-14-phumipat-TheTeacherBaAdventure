@@ -5,25 +5,10 @@ using UnityEngine;
 public abstract class Enemy : Character
 {
     [SerializeField] protected float _speed;
-    public GameObject _hitBox;
+    public GameObject _enemyAndPoint;
 
     [SerializeField] protected Transform[] _movePoints;
 
-    // Update
-    private void Update()
-    {
-        Movement();
-        IsDead();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Character obj = collision.GetComponent<Character>();
-        if (_hitBox != null && obj is Player)
-        {
-            Attack();
-        }
-    }
     public virtual void Movement()
     {
         // Use move Obj and HitBox
@@ -47,13 +32,13 @@ public abstract class Enemy : Character
         _speed *= -1;
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
 
-        //CharHealthBar.transform.localScale *= -1;
+        CharHealthBar.transform.localScale *= -1;
     }
     public override bool IsDead()
     {
         if (base.IsDead())
         {
-            Destroy(gameObject);
+            Destroy(_enemyAndPoint);
         }
         return base.IsDead();
     }

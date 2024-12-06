@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5221604029093648791}
   - component: {fileID: 656357093668241591}
   - component: {fileID: -6576909885754883193}
-  - component: {fileID: -8071607398900586729}
+  - component: {fileID: 2827735963181659932}
   m_Layer: 0
   m_Name: Mugen
   m_TagString: Untagged
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6735167, g: 0.2028302, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bb30acda56adc7a4b8ecdaadb7d118c0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _destroyTime: 3
---- !u!58 &-8071607398900586729
-CircleCollider2D:
+--- !u!70 &2827735963181659932
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -132,6 +132,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Offset: {x: 0.0061941147, y: 0.049551964}
+  m_Size: {x: 0.51597977, y: 1.6432881}
+  m_Direction: 0

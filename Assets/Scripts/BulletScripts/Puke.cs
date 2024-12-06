@@ -20,6 +20,7 @@ public class Puke : Bullet
         if (inputChar is Player)
         {
             inputChar.TakeDamage(Damage);
+            Destroy(gameObject);
         }
     }
 }
