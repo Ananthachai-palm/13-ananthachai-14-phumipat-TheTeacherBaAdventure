@@ -7,8 +7,8 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     // Variable
-    private float _speed = 10.0f;
-    private float _jumpPower = 5.0f;
+    private float _speed = 7.5f;
+    private float _jumpPower = 6.25f;
     [SerializeField]
     private float _range = 1f;
 

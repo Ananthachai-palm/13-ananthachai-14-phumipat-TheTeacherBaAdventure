@@ -152,7 +152,7 @@ MonoBehaviour:
   _setHP: 50
   _setDamage: 100
   charHealthBar: {fileID: 814401220434729583}
-  _speed: 5
+  _speed: 3
   _enemyAndPoint: {fileID: 497581994529414610}
   _movePoints:
   - {fileID: 4450566633436256144}

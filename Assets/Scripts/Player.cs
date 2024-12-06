@@ -56,6 +56,11 @@ public class Player : Character, IShootable
 
         // if Player is dead
         CheckDead();
+
+        if (transform.position.y < -50)
+        {
+            TakeDamage(100);
+        }
     }
 
     // OnTriggerEnter

@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8297825686404627948}
   m_Layer: 0
-  m_Name: DinoAndPoint
+  m_Name: Dinosaur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 7503860119725793235}
   - component: {fileID: 987024348502592930}
   m_Layer: 0
-  m_Name: Dinosaur
+  m_Name: DinosaurComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 3385187195564297622}
   _setHP: 200
-  _setDamage: 5
+  _setDamage: 50
   charHealthBar: {fileID: 7669829546420568099}
   _speed: 5
   _enemyAndPoint: {fileID: 1181674529890298964}
