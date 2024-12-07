@@ -507,6 +507,14 @@ PrefabInstance:
       value: MainMenuCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4994860587201621939, guid: 4220ed11c14005540b9d26882210ae59, type: 3}
+      propertyPath: Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b1aaaa2ba77425048b45b34b9527edb0, type: 3}
+    - target: {fileID: 4994860587201621939, guid: 4220ed11c14005540b9d26882210ae59, type: 3}
+      propertyPath: Audio
+      value: 
+      objectReference: {fileID: 1241112062}
+    - target: {fileID: 4994860587201621939, guid: 4220ed11c14005540b9d26882210ae59, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1241112062}
