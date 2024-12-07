@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mugen : Bullet
+public class Broom : Bullet
 {
     private void Start()
     {

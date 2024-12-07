@@ -16,11 +16,11 @@ public class PlayerBullet : Item
 
         // Instantiate mugen
         GameObject obj = Instantiate(player.Bullet, player.BulletSpawnPoint.transform.position, Quaternion.identity);
-        Mugen mugen = obj.GetComponent<Mugen>();
-        mugen.Init(player.Damage, player.GetComponent<IShootable>());
+        Broom broom = obj.GetComponent<Broom>();
+        broom.Init(player.Damage, player.GetComponent<IShootable>());
 
         // Destroy after DestroyTime is finish
-        Destroy(obj, mugen.DestroyTime);
+        Destroy(obj, broom.DestroyTime);
 
         // Debug
         Debug.Log($"Player Shoot {Name}");
